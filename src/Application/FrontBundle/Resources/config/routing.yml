@@ -1,0 +1,50 @@
+indexFront:
+    path: /
+    defaults: { _controller: ApplicationFrontBundle:Default:index }
+indexFrontLocale:
+    path: /{_locale}
+    defaults:
+        _controller: ApplicationFrontBundle:Default:index
+        _locale: %defloc%
+    requirements: 
+        _locale: %locales%
+aboutFront:
+    path: /about
+    defaults: { _controller: ApplicationFrontBundle:Default:about }
+aboutFrontLocale:
+    path: /{_locale}/about
+    defaults:
+        _controller: ApplicationFrontBundle:Default:about
+        _locale: %defloc%
+    requirements: 
+        _locale: %locales%
+contactFront:
+    path: /contact
+    defaults: { _controller: ApplicationFrontBundle:Default:contact }
+contactFrontLocale:
+    path: /{_locale}/contact
+    defaults:
+        _controller: ApplicationFrontBundle:Default:feedback
+        _locale: %defloc%
+    requirements: 
+        _locale: %locales%
+pageFront:
+    path: /{pageUri}
+    defaults: { _controller: ApplicationFrontBundle:Default:page }
+pageFrontLocale:
+    path: /{_locale}/{pageUri}
+    defaults:
+        _controller: ApplicationFrontBundle:Default:page
+        _locale: %defloc%
+    requirements: 
+        _locale: %locales%
+removeTrailingSlash:
+    path: /{url}
+    defaults: { _controller: ApplicationFrontBundle:Default:removeTrailingSlash }
+    requirements: 
+        url: ".*\/$"
+
+
+
+
+

@@ -1,0 +1,10 @@
+services:
+    app.helpers:
+        class: Application\BoardBundle\Helpers
+    app.simpleimage:
+        class: Application\BoardBundle\SimpleImage
+    application_event.event_listener:
+      class: Application\FrontBundle\Listener\EventListener
+      arguments: ['@doctrine.orm.entity_manager']
+      tags:
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

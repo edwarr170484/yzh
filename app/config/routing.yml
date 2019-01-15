@@ -1,0 +1,15 @@
+application_board:
+    resource: '@ApplicationBoardBundle/Controller/'
+    type: annotation
+application_blog:
+    resource: '@ApplicationBlogBundle/Resources/config/routing.yml'
+    prefix:   /
+application_portfolio:
+    resource: '@ApplicationPortfolioBundle/Resources/config/routing.yml'
+    prefix:   /
+application_menu:
+    resource: "@ApplicationMenuBundle/Resources/config/routing.yml"
+    prefix:   /
+application_front:
+    resource: '@ApplicationFrontBundle/Resources/config/routing.yml'
+    prefix:   /

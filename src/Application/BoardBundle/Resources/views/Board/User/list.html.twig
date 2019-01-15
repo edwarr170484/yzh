@@ -1,0 +1,79 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %}Панель управления BootBoard v1.0{% endtrans %} - {% trans %}Валюта сайта{% endtrans %}{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item">{% trans %}Пользователи{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group">
+                <a class="btn btn-secondary" href="{{ path('settingsBoard') }}"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Пользователи{% endtrans %}
+                            <div class="card-actions">
+                                <a href="{{ path('boardUserEdit') }}" title="{% trans %}Добавить{% endtrans %}"><i class="fa fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" title="{% trans %}Удалить отмеченные{% endtrans %}" onclick="if(confirm('{% trans %}Вы действительно хотите удалить отмеченные пункты?{% endtrans %}')){$('#form_action').val('delete');document.form.submit();}"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {% if users %}
+                                {{ form_start(form) }}
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" class="selectAllItems" title="{% trans %}Выбрать все{% endtrans %}"/></th>
+                                                <th>{% trans %}Имя{% endtrans %}</th>
+                                                <th>{% trans %}Логин{% endtrans %}</th>
+                                                <th>{% trans %}Роль{% endtrans %}</th>
+                                                <th>{% trans %}Действия{% endtrans %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in users %}
+                                                <tr>
+                                                    <td><input name="userIds[]" value="{{ user.id }}" type="checkbox" class="checkbox-item" /></td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.username }}</td>
+                                                    {% if user.roles %}
+                                                        <td>
+                                                            {% for role in user.roles %}
+                                                                {{ role.name }}<br/>
+                                                            {% endfor %}
+                                                        </td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <a href="{{ path('boardUserEdit', {'userId' : user.id}) }}" class="btn btn-primary" title="{% trans %}Редактировать{% endtrans %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {{ form_end(form) }}
+                            {% else %}
+                                {% trans %}Пользователи не добавлены{% endtrans %}
+                            {% endif %}
+                        </div> 
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

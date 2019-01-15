@@ -1,0 +1,39 @@
+security:
+    encoders:
+        Application\BoardBundle\Entity\User: 
+            algorithm: bcrypt
+    
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER]
+        
+    providers:
+        board_db_provider:
+            entity:
+                class: ApplicationBoardBundle:User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        board:
+            pattern:      ^/board
+            anonymous: ~
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+                provider: board_db_provider 
+                login_path: /board/login
+                check_path: /board/login
+                default_target_path: /board
+            logout:
+                path:   /board/logout
+                target: /  
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 86400 
+                path:     /
+                
+    access_control:
+        - { path: ^/board/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/board, roles: ROLE_ADMIN }  

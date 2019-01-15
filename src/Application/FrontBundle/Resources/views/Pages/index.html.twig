@@ -1,0 +1,32 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ page.metaTagTitle }}</title>
+    <meta content="{{ page.metaTagDescription}}" name="description" />
+    <meta content="{{ page.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ page.metaTagAuthor}}" name="author" />
+    <meta content="{{ page.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+    <div class="row flex-row align-items-center mb-auto">
+        {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+        <div class="col-lg-10 col-md-10">
+            <div class="owl-carousel" id="index-owl-gallery">
+                <div class="slider-block">
+                    <div class="row flex-row align-items-center">
+                        <div class="col-lg-6 col-md-6 slider-textblock d-flex flex-column">
+                            <h1 style="font-size:4rem;font-weight:normal;display:block;">Лучшие цветы для Ваших любимых</h1>
+                            <h5 style="font-size:1.6rem;padding-top:2.5rem;font-weight:normal;display:block;">порадуйте тех, кого любите</h5>
+                            <a href="" style="display:block;font-size:1.6rem;color:#fff;padding:1.7rem 5rem;margin-top:3rem;">ПОДРОБНЕЕ</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 slider-image d-none d-sm-none d-md-block">
+                            <a href=""><img src="{{ asset('bundles/front/images/slide1.png') }}" alt="" title="" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

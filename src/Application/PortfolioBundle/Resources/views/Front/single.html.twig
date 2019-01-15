@@ -1,0 +1,39 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ porfolio.metaTagTitle }}</title>
+    <meta content="{{ porfolio.metaTagDescription}}" name="description" />
+    <meta content="{{ porfolio.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ porfolio.metaTagAuthor}}" name="author" />
+    <meta content="{{ porfolio.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    {% if porfolio %}
+        <div class="col-lg-10 col-md-10 portfolioCategories">
+            {% if porfolio.portfolioImages %}
+                {% for image in porfolio.portfolioImages %}
+                    <div class="portfolioCategory animated fadeInDown" {% if image.style %}style="{{ image.style }}"{% endif %}>
+                        <a href="{{ asset('bundles/images/portfolio/' ~ image.image) }}" data-lightbox="portfolioImages">
+                            <img src="{{ asset('bundles/images/portfolio/' ~ image.image) }}" alt="{{ image.alt }}" title="{{ image.title }}" />
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-lg-10 col-md-10 portfolioCategoriesMobile">
+            {% if porfolio.portfolioImages %}
+                {% for image in porfolio.portfolioImages %}
+                    <div class="portfolioCategory animated fadeInDown">
+                        <a href="{{ asset('bundles/images/portfolio/' ~ image.image) }}" data-lightbox="portfolioImagesMobile">
+                            <img src="{{ asset('bundles/images/portfolio/' ~ image.image) }}" alt="{{ image.alt }}" title="{{ image.title }}" />
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block metatags %}{% endblock %}
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu" rel="stylesheet">  
+        <link href="{{ asset('bundles/front/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/font-awesome/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/owl/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/owl/owl.theme.default.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/lightbox/lightbox.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/animations.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/mobile.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/front/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+        
+        <script src="{{asset('bundles/front/js/jquery/jquery-3.2.1.min.js')}}"></script>
+        <script src="{{asset('bundles/front/js/jquery/jquery-migrate-1.4.1.min.js')}}"></script>
+        <script src="{{asset('bundles/front/js/owl/owl.carousel.min.js')}}"></script>
+    </head>
+    <body>
+        <div class="d-flex w-100 h-100 mx-auto flex-column container">
+        {{ render(controller('ApplicationFrontBundle:Default:getHeader', {'request' : app.request})) }} 
+        {% block body %}{% endblock %}
+        {{ render(controller('ApplicationFrontBundle:Default:getFooter', {'request' : app.request})) }} 
+        </div>
+    <script src="{{asset('bundles/front/js/bootstrap/bootstrap.min.js')}}"></script>
+    <script src="{{asset('bundles/front/js/jquery.cookie.js')}}"></script>
+    <script src="{{asset('bundles/front/js/lightbox/lightbox.min.js')}}"></script>
+    <script src="{{asset('bundles/front/js/custom.js')}}"></script> 
+    </body>
+</html>
+
+

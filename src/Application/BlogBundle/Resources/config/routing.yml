@@ -1,0 +1,40 @@
+blogPage:
+    path: /blog/{pageNumber}
+    defaults: 
+        _controller: ApplicationBlogBundle:Blog:blog
+        pageNumber: 0
+blogPageLocale:
+    path: /{_locale}/blog/{pageNumber}
+    defaults:
+        _controller: ApplicationBlogBundle:Blog:blog
+        _locale: %defloc%
+        pageNumber: 0
+    requirements: 
+        _locale: %locales%
+singleBlogPage:
+    path: /single/{newsName}
+    defaults:
+        _controller: ApplicationBlogBundle:Blog:single
+        newsName: 0
+singleBlogPageLocale:
+    path: /{_locale}/single/{newsName}
+    defaults:
+        _controller: ApplicationBlogBundle:Blog:single
+        newsName: 0
+        _locale: %defloc%
+    requirements: 
+        _locale: %locales%
+blogBoard:
+    path: /board/blog/{page}
+    defaults:
+        _controller: ApplicationBlogBundle:BlogAdmin:blog
+        page: 0
+blogEditBoard:
+    path: /board/blogedit/{itemId}
+    defaults:
+        _controller: ApplicationBlogBundle:BlogAdmin:blogEdit
+        itemId: 0
+
+
+
+

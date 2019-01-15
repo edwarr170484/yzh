@@ -1,0 +1,37 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ page.metaTagTitle }}</title>
+    <meta content="{{ page.metaTagDescription}}" name="description" />
+    <meta content="{{ page.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ page.metaTagAuthor}}" name="author" />
+    <meta content="{{ page.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    <div class="col-lg-10 col-md-10">
+        {% if pagination %}
+            <div class="blog-pagination d-flex justify-content-center">
+                {{ pagination | raw }}
+            </div>
+        {% endif %}
+        {% if news %}
+        <div class="blog-items">
+            {% for item in news %}
+                <div class="blog-item">
+                    <a href="{{ path('singleBlogPage', {'newsName' : item.translit}) }}" title="{{ item.title }}">
+                        <div class="blog-item-header">{{ item.title }}</div>
+                        <div class="blog-item-image">
+                            <img src="{{ asset('bundles/images/blog/' ~ item.image) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                            <div class="blog-item-link"><span>{% trans %}Читать далее{% endtrans %}</span></div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

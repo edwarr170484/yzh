@@ -1,0 +1,52 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ page.metaTagTitle }}</title>
+    <meta content="{{ page.metaTagDescription}}" name="description" />
+    <meta content="{{ page.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ page.metaTagAuthor}}" name="author" />
+    <meta content="{{ page.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    {% if porfolios %}
+        <div class="col-lg-10 col-md-10 portfolioCategories">
+            {% for portfolio in porfolios %}
+                <div class="portfolioCategory animated zoomIn" {% if portfolio.style %}style="{{ portfolio.style }}"{% endif %}>
+                    <a href="{{ path('singlePortfolio', {'portfolioName' : portfolio.name }) }}">
+                        {% if portfolio.portfolioImages %}
+                            <img src="{{ asset('bundles/images/portfolio/' ~ portfolio.portfolioImages[0].image) }}" alt="{{ portfolio.name }}" title="{{ portfolio.name }}" />
+                        {% endif %}
+                        <span>
+                            <span>{{ portfolio.title }}</span>
+                            <div class="portfolio-decoration"></div>
+                        </span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>    
+        <div class="col-lg-10 col-md-10 portfolioCategoriesMobile">
+            {% for portfolio in porfolios %}
+                <div class="portfolioCategory animated zoomIn">
+                    <a href="{{ path('singlePortfolio', {'portfolioName' : portfolio.name }) }}">
+                        {% if portfolio.portfolioImages %}
+                            <img src="{{ asset('bundles/images/portfolio/' ~ portfolio.portfolioImages[0].image) }}" alt="{{ portfolio.name }}" title="{{ portfolio.name }}" />
+                        {% endif %}
+                        <span>
+                            <span>{{ portfolio.title }}</span>
+                            <div class="portfolio-decoration"></div>
+                        </span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% if page.blocks %}
+    {% for block in page.blocks %}
+        {{ block.blockContent | raw }}
+    {% endfor %}
+{% endif %}
+{% endblock %}

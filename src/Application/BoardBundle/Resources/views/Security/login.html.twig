@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <title>{% trans %}Вход в панель управления BootBoard v1.0{% endtrans %}</title>
+    <link href="{{ asset('bundles/board/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/board/css/simple-line-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/board/css/style.css') }}" rel="stylesheet">
+</head>
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card-group mb-0">
+                    <div class="card p-2">
+                        <div class="card-block">
+                            <h1>{% trans %}Войти{% endtrans %}</h1>
+                            <p class="text-muted">{% trans %}Используйте свой логин и пароль для входа{% endtrans %}</p>
+                            <form action="{{path('boardLogin')}}" method="POST" class="margin-bottom-0">
+                                {% if error %}
+                                    <div class="form-group">
+                                        <div class="alert alert-danger">
+                                            <button class="close-alert" data-dismiss="alert" type="button">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            {{ error.message | replace({"Bad credentials." : "Неверный логин или пароль"}) }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-1">
+                                    <span class="input-group-addon"><i class="icon-user"></i>
+                                    </span>
+                                    <input type="text" class="form-control" name="_username" value="{{last_username}}" required placeholder="{% trans %}Логин{% endtrans %}" />
+                                </div>
+                                <div class="input-group mb-2">
+                                    <span class="input-group-addon"><i class="icon-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" placeholder="{% trans %}Пароль{% endtrans %}" name="_password" required>
+                                </div>
+                                <div class="input-group mb-1">
+                                    <label>
+                                        <input type="checkbox" id="remember_me" name="_remember_me" checked="checked"> {% trans %}Запомнить меня{% endtrans %}
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+                                        <button type="submit" class="btn btn-primary px-2">{% trans %}Войти{% endtrans %}</button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button type="button" class="btn btn-link px-0">{% trans %}Забыли пароль?{% endtrans %}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('bundles/board/js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/tether.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/bootstrap.min.js') }}"></script>
+</body>
+</html>

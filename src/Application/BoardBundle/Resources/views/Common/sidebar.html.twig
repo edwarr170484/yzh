@@ -1,0 +1,51 @@
+<div class="sidebar">
+    <nav class="sidebar-nav">
+        <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('indexBoard') }}"><i class="icon-speedometer"></i>{% trans %}Панель управления{% endtrans %}</a>
+                    </li>
+                    <li class="nav-title">{% trans %}Элементы сайта{% endtrans %}</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('pageBoard') }}"><i class="fa fa-files-o"></i> {% trans %}Страницы{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('application_menu_board_index') }}"><i class="fa fa-bars"></i> {% trans %}Меню{% endtrans %}</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="nav-title">{% trans %}Расширения{% endtrans %}</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('messageBoard') }}">
+                            <i class="fa fa-envelope"></i> 
+                            {% trans %}Сообщения{% endtrans %}
+                            {% if messages %}<span class="tag tag-info">+ {{ messages | length }}</span>{% endif %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('blogBoard') }}"><i class="fa fa-newspaper-o"></i> {% trans %}Блог{% endtrans %}</a>
+                    </li>
+                    <li class="nav-title">{% trans %}Портфолио{% endtrans %}</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('portfolioCategoryBoard') }}"><i class="fa fa-clone"></i> {% trans %}Категории{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('portfolioBoard') }}"><i class="fa fa-picture-o"></i> {% trans %}Портфолио{% endtrans %}</a>
+                    </li>
+                    <li class="nav-title">{% trans %}Пользователи{% endtrans %}</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('boardUser') }}"><i class="fa fa-user-o"></i> {% trans %}Пользователи{% endtrans %}</a>
+                    </li>
+                    <li class="nav-title">{% trans %}Система{% endtrans %}</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('currencyBoard') }}"><i class="fa fa-usd"></i> {% trans %}Валюты сайта{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('localeAdmin') }}"><i class="fa fa-file-text-o"></i> {% trans %}Локализация{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('settingsBoard') }}"><i class="fa fa-cog"></i> {% trans %}Настройки{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('boardClearCache') }}"><i class="fa fa-trash-o"></i> {% trans %}Очистить кеш{% endtrans %}</a>
+                    </li>
+        </ul>
+    </nav>
+</div>

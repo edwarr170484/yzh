@@ -1,0 +1,45 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ item.metaTagTitle }}</title>
+    <meta content="{{ item.metaTagDescription}}" name="description" />
+    <meta content="{{ item.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ item.metaTagAuthor}}" name="author" />
+    <meta content="{{ item.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    <div class="col-lg-10 col-md-10">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="blog-item-header">
+                    <h1><a href="{{ path('blogPage') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a> {{ item.title }}</h1>
+                </div>
+                <div class="about-info">
+                    {{ item.text | raw }}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 about-info blog-images">
+                <div class="blog-image">
+                    <a href="{{ asset('bundles/images/blog/' ~ item.image) }}" data-lightbox="blogImage">
+                        <img src="{{ asset('bundles/images/blog/' ~ item.image) }}" alt="" title="" />
+                    </a>
+                </div>
+                <div class="blog-image">
+                    <a href="{{ asset('bundles/images/blog/' ~ item.image) }}" data-lightbox="blogImage">
+                        <img src="{{ asset('bundles/images/blog/' ~ item.image) }}" alt="" title="" />
+                    </a>
+                </div>
+                <div class="blog-image">
+                    <a href="{{ asset('bundles/images/blog/' ~ item.image) }}" data-lightbox="blogImage">
+                        <img src="{{ asset('bundles/images/blog/' ~ item.image) }}" alt="" title="" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}
+

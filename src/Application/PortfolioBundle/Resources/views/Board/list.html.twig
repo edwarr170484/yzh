@@ -1,0 +1,115 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %} Панель управления - Портфолио{% endtrans %}{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item">{% trans %}Портфолио{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group">
+                <a class="btn btn-secondary" href="{{ path('settingsBoard') }}"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Портфолио{% endtrans %}
+                            <div class="card-actions">
+                                <a href="{{ path('portfolioEditBoard') }}" title="{% trans %}Добавить{% endtrans %}"><i class="fa fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" title="{% trans %}Сохранить{% endtrans %}" onclick="document.form.submit();"><i class="fa fa-floppy-o"></i></a>
+                                <a href="javascript:void(0)" title="{% trans %}Удалить отмеченные{% endtrans %}" onclick="if(confirm('{% trans %}Вы действительно хотите удалить отмеченные пункты?{% endtrans %}')){$('#form_action').val('delete');document.form.submit();}"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {% if locales %}
+                                {{ form_start(form) }}
+                                <ul class="nav nav-tabs">
+                                {% set i = 1 %}
+                                    {% for locale in locales %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if i == 1 %}active{% endif %}" data-toggle="tab" role="tab" href="#locale_{{ locale.code }}" aria-controls="locale_{{ locale.code }}"><img src="{{ asset('bundles/board/img/flags/' ~ locale.country) }}" />&nbsp;{{ locale.name }}</a>
+                                        </li>
+                                        {% set i = i + 1%}
+                                    {% endfor %}
+                                </ul>
+                                <div class="tab-content">
+                                        {% set i = 1 %}
+                                        {% for locale in locales %}
+                                            <div id="locale_{{ locale.code }}" class="tab-pane {% if i == 1 %}active{% endif %}">
+                                                {% if locale.portfolioItems | length > 0 %}
+                                                        <table class="table table-bordered table-messages">
+                                                               <thead>
+                                                                   <tr>
+                                                                       <th><input type="checkbox" class="selectAllItems" /></th>
+                                                                       <th>Заголовок</th>
+                                                                       <th>Категория</th>
+                                                                       <th>Дата публикации</th>
+                                                                       <th>Порядок</th>
+                                                                       <th>Действия</th>
+                                                                   </tr>
+                                                               </thead>
+                                                               <tbody>
+                                                                       {% for item in locale.portfolioItems %}
+                                                                           <tr>
+                                                                               <td><input name="itemIds[]" value="{{ item.id }}" type="checkbox" class="checkbox-item" /></td>
+                                                                               <td>
+                                                                                   <p class="m-b-5">
+                                                                                       {{ item.title }}
+                                                                                   </p>
+                                                                               </td>
+                                                                               <td>
+                                                                                   <p class="m-b-5">
+                                                                                       {{ item.portfolioCategory.title }}
+                                                                                   </p>
+                                                                               </td>
+                                                                               <td>
+                                                                                   <p class="m-b-5">
+                                                                                       {{ item.dateAdded | date("d.m.Y в H:i") }}
+                                                                                   </p>
+                                                                               </td>
+                                                                               <td>
+                                                                                   <p class="m-b-5">
+                                                                                        <a href="javascript:void(0)" onclick="itemUp($(this))"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                                                                                        <input name="sortorder[{{ item.id }}]" value="{{ item.sortorder }}" class="item-sortorder"/>
+                                                                                        <a href="javascript:void(0)" onclick="itemDown($(this))"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                                                                                   </p>
+                                                                               </td>
+                                                                               <td>
+                                                                                   <a class="btn btn-success" href="{{ path('portfolioEditBoard',{ itemId : item.id }) }}">
+                                                                                       <i class="fa fa-pencil" title="Редактировать запись"></i>
+                                                                                   </a>
+                                                                               </td>
+                                                                           </tr>
+                                                                       {% endfor %}
+                                                               </tbody>
+                                                       </table>
+                                               {% else %}
+                                                   Записей пока нет
+                                               {% endif %}
+                                            </div>
+                                        {% set i = i + 1%}
+                                        {% endfor %}
+                                    </div>
+                            {{ form_end(form) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}    

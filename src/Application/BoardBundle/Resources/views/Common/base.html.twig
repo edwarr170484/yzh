@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ asset('bundles/board/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/board/css/simple-line-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/board/css/style.css') }}" rel="stylesheet">
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
+    {{ render(controller('ApplicationBoardBundle:Default:getHeader')) }}
+    <div class="app-body">
+        {{ render(controller('ApplicationBoardBundle:Default:getSidebar')) }}
+        {% block body %}{% endblock %}
+    </div>
+    {{ render(controller('ApplicationBoardBundle:Default:getFooter')) }}
+    <script src="{{ asset('bundles/board/js/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/tether.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/pace.min.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/views/main.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/views/charts.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/views/widgets.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/custom.js') }}"></script>
+    <script src="{{ asset('bundles/board/js/TinyMCE/tinymce.min.js') }}"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                    language: "ru",
+                    valid_elements : "*[*]",
+                    cleanup : false,
+                    height:"300",
+                    verify_html : false,
+                    cleanup_on_startup : false,
+                    forced_root_block : "",
+                    validate_children : false,
+                    remove_redundant_brs : false,
+                    remove_linebreaks : false,
+                    force_p_newlines : false,
+                    force_br_newlines : false,
+                    valid_children : "+a[div|p|img|br|strong],+ol[p|img|br|strong],+ul[p|img|br|strong]",
+                    validate: false,
+                    fix_table_elements : false,
+                    fix_list_elements:false,
+                    image_advtab: true,
+                    selector: "textarea.tinyeditor",
+                    external_filemanager_path:"/bundles/board/js/TinyMCE/plugins/filemanager/",
+                    plugins: "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste textcolor filemanager",
+                    toolbar: "insertfile undo redo | styleselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | filemanager"
+            });
+        </script>
+</body>
+
+</html>

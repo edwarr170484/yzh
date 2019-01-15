@@ -1,0 +1,204 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %} Панель управления - Редактировать портфолио{% endtrans %}{% endblock %}
+
+{% form_theme itemForm _self %}
+
+{% block _portfolioItem_portfolioImages_widget %}
+    
+    <table class="table table-bordered table-portfolio-images">
+        <thead>
+            <tr>
+                <th>{% trans %}Изображение{% endtrans %}</th>
+                <th>{% trans %}Данные{% endtrans %}</th>
+                <th>{% trans %}Порядок{% endtrans %}</th>
+                <th>{% trans %}Действия{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+                {{ form_widget(form) }}
+        </tbody>
+    </table> 
+{% endblock %}
+
+{% block _portfolioItem_portfolioImages_entry_row %}
+    <tr>
+        <td>
+            {% if form.image.vars.value %}
+                <img src="{{ asset('bundles/images/portfolio/') }}{{ form.image.vars.value }}" alt="" title="" width="200px" />
+            {%endif %}
+            {{ form_widget(form.imageNew)}}
+            {{ form_widget(form.image)}}
+            {{ form_widget(form.portfolioItem) }}
+        </td>
+        <td> 
+            <div class="form-group">
+                <div class="col-md-12 m-t-15"><b>{{ form_label(form.alt)}}:</b></div>
+                <div class="col-md-12">
+                    {{ form_widget(form.alt)}}
+                </div>
+            </div> 
+            <div class="form-group">
+                <div class="col-md-12 m-t-15"><b>{{ form_label(form.title)}}:</b></div>
+                <div class="col-md-12">
+                    {{ form_widget(form.title)}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 m-t-15"><b>{{ form_label(form.style)}}:</b></div>
+                <div class="col-md-12">
+                    {{ form_widget(form.style)}}
+                </div>
+            </div>
+        </td>
+        <td>
+            <a href="javascript:void(0)" onclick="itemUp($(this))"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+            {{ form_widget(form.sortorder)}}
+            <a href="javascript:void(0)" onclick="itemDown($(this))"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+        </td>
+        <td><button class="btn btn-danger" onclick="if(!confirm('Вы уверены, что хотите удалить изображение'))return false;else $(this).parent().parent().remove()">
+                <i class="fa fa-times" title="Удалить изображение"></i>
+            </button> 
+        </td>
+    </tr>
+{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('portfolioBoard') }}">{% trans %}Портфолио{% endtrans %}</a></li>
+        <li class="breadcrumb-item active">{% trans %}Редактировать портфолио{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <a class="btn btn-secondary" href="{{ path('settingsBoard') }}"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Редактировать портфолио{% endtrans %}
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {{ form_start(itemForm, {'attr' : {'class' : 'form-horizontal'}})}}
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#maininfo" role="tab" aria-controls="maininfo">
+                                            <i class="fa fa-info"></i> {% trans %}Общая информация{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#images" role="tab" aria-controls="meta">
+                                            <i class="fa fa-picture-o"></i> {% trans %}Изображения{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#meta" role="tab" aria-controls="meta">
+                                            <i class="fa fa-file-code-o"></i> {% trans %}Мета-теги{% endtrans %}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="maininfo" role="tabpanel">
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.title)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.title)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.name)}}</label>
+                                            <div class="input-group col-md-12">
+                                                {{ form_widget(itemForm.name)}}
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-primary" onclick="generateTranslit($('#portfolioItem_title'),$('#portfolioItem_name'))">Транслит</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.portfolioCategory)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.portfolioCategory)}}
+                                            </div>
+                                        </div>        
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.locale)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.locale)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.sortorder)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.sortorder)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.style)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.style)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(itemForm.description)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(itemForm.description)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="images" class="tab-pane">
+                                        <button class="btn btn-sm btn-success m-b-15" id="add-portfolio-image" type="button"><i class="fa fa-plus" aria-hidden="true"></i>
+ Добавить изображение</button>
+                                        {{ form_widget(itemForm.portfolioImages)}}
+                                        {% if itemForm.portfolioImages | length <= 0 %}
+                                            Изображения не добавлены
+                                        {% endif %}
+                                    </div>
+                                    <div id="meta" class="tab-pane">
+                                        <div class="form-group">
+                                            <label>{{ form_label(itemForm.metaTagTitle)}}</label>
+                                                {{ form_widget(itemForm.metaTagTitle)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(itemForm.metaTagDescription)}}</label>
+                                                {{ form_widget(itemForm.metaTagDescription)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(itemForm.metaTagKeywords)}}</label>
+                                                {{ form_widget(itemForm.metaTagKeywords)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(itemForm.metaTagRobots)}}</label>
+                                                {{ form_widget(itemForm.metaTagRobots)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(itemForm.metaTagAuthor)}}</label>
+                                                {{ form_widget(itemForm.metaTagAuthor)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">{% trans %}Сохранить{% endtrans %}</button>
+                                    <button type="submit" class="btn btn-default" onclick="$('#formExit').val(1);">{% trans %}Сохранить и выйти{% endtrans %}</button>
+                                </div>
+                                {{ form_widget(itemForm.exit, {'id' : 'formExit'}) }}
+                            {{ form_end(itemForm)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                  
+</main>
+{% endblock %} 

@@ -1,0 +1,42 @@
+@keyframes firstline {
+    from {width: 0;left:0;}
+    to {width: 41px;left: 55px;}
+}
+@keyframes middleline {
+    from {width: 0;left:0;}
+    to {width: 32px;left: 64px;}
+}
+@keyframes lastline {
+    from {width: 0;left:-10px;}
+    to {width: 100%;left:0;}
+}
+@keyframes gallery-text {
+    from {opacity:0;left:0;}
+    to {opacity:1;left:16%;}
+}
+@keyframes modal-input {
+    from {top:1.8rem;}
+    to {top:0;}
+}
+@keyframes createCross {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes height {
+    from {height:0;}
+    to {height:100%;}
+}
+.menu-button:hover .menu-button-line.first{animation: firstline  0.5s 1 ease;}
+.menu-button:hover .menu-button-line.middle{animation: middleline  0.5s 1 ease 0.1s;}
+.menu-button:hover .menu-button-line.last{animation: lastline  0.5s 1 ease 0.2s;}
+.slider-block-info{animation: gallery-text  2.5s 1 ease;}
+.central-slider-line{animation: height 1s 1 ease;}
+.left-slider-line{animation: height 1s 1 ease;}
+.right-slider-line{animation: height 1s 1 ease;}
+button.close.close-modal:hover .button-cross{animation: createCross .5s;}
+
+

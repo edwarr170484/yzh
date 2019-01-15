@@ -1,0 +1,6 @@
+application_menu_board_index:
+    path:     /board/menu
+    defaults: { _controller: ApplicationMenuBundle:Menu:menu }
+application_menu_board_edit:
+    path:     /board/menu/edit/{menuId}
+    defaults: { _controller: ApplicationMenuBundle:Menu:edit, menuId: 0 }

@@ -1,0 +1,32 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ page.metaTagTitle }}</title>
+    <meta content="{{ page.metaTagDescription}}" name="description" />
+    <meta content="{{ page.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ page.metaTagAuthor}}" name="author" />
+    <meta content="{{ page.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    <div class="col-lg-10 col-md-10">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="about-info animated fadeIn">
+                    {{ page.pageContent | raw }}
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 about-info d-none d-sm-none d-md-block">
+                <img src="{{ asset('bundles/front/images/girl.png') }}" alt="" title="" />
+            </div>
+        </div>
+    </div>
+</div>
+{% if page.blocks %}
+    {% for block in page.blocks %}
+        {{ block.blockContent | raw }}
+    {% endfor %}
+{% endif %}
+{% endblock %}

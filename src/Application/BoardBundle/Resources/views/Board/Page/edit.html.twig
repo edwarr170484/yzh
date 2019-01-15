@@ -1,0 +1,174 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %} Панель управления - Редактировать страницу{% endtrans %}{% endblock %}
+
+{% form_theme pageForm _self %}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{% block _page_blocks_widget %}
+    <table class="table table-bordered table-page-blocks">
+        <thead>
+            <tr>
+                <th>{% trans %}Текстовый блок{% endtrans %}</th>
+                <th>{% trans %}Порядок{% endtrans %}</th>
+                <th>{% trans %}Действия{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ form_widget(form) }}
+        </tbody>
+    </table> 
+{% endblock _page_blocks_widget %}
+
+{% block _page_blocks_entry_row %}
+    <tr>
+        <td>{{ form_widget(form.blockContent)}}</td>
+        <td>
+            {{ form_widget(form.sortorder)}}
+        </td>
+        <td><button class="btn btn-danger" onclick="if(!confirm('Вы уверены, что хотите удалить блок?'))return false;else $(this).parent().parent().remove();">
+                <i class="fa fa-times" title="Удалить текстовый блок"></i>
+            </button> 
+        </td>
+    </tr>
+{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('pageBoard') }}">{% trans %}Страницы{% endtrans %}</a></li>
+        <li class="breadcrumb-item active">{% trans %}Редактировать страницу{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <a class="btn btn-secondary" href="#"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Редактировать страницу{% endtrans %}
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {{ form_start(pageForm, {'attr' : {'class' : 'form-horizontal'}})}}
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#maininfo" role="tab" aria-controls="maininfo">
+                                            <i class="fa fa-info"></i> {% trans %}Общая информация{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#block" role="tab" aria-controls="maininfo">
+                                            <i class="fa fa-cubes"></i> {% trans %}Блоки для страницы{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#meta" role="tab" aria-controls="meta">
+                                            <i class="fa fa-file-code-o"></i> {% trans %}Мета-теги{% endtrans %}
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="maininfo" role="tabpanel">
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(pageForm.pageName)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(pageForm.pageName)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                                <label class="col-md-12">{{ form_label(pageForm.pageRoute)}}</label>
+                                                <div class="col-md-12">
+                                                    {{ form_widget(pageForm.pageRoute)}}
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(pageForm.locale)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(pageForm.locale)}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-12">{{ form_label(pageForm.pageContent)}}</label>
+                                            <div class="col-md-12">
+                                                {{ form_widget(pageForm.pageContent)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="block" role="tabpanel">
+                                        <button class="btn btn-sm btn-success m-b-15" id="add-page-block" type="button"><i class="fa fa-plus" aria-hidden="true"></i>
+ Добавить тектовый блок</button>
+                                        {{ form_widget(pageForm.blocks)}}
+                                        {% if pageForm.blocks | length <= 0 %}
+                                            Текстовых блоков не обнаружено
+                                        {% endif %}
+                                    </div>
+                                    <div id="meta" class="tab-pane">
+                                        <div class="form-group">
+                                            <label>{{ form_label(pageForm.metaTagTitle)}}</label>
+                                                {{ form_widget(pageForm.metaTagTitle)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(pageForm.metaTagDescription)}}</label>
+                                                {{ form_widget(pageForm.metaTagDescription)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(pageForm.metaTagKeywords)}}</label>
+                                                {{ form_widget(pageForm.metaTagKeywords)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(pageForm.metaTagRobots)}}</label>
+                                                {{ form_widget(pageForm.metaTagRobots)}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{ form_label(pageForm.metaTagAuthor)}}</label>
+                                                {{ form_widget(pageForm.metaTagAuthor)}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">{% trans %}Сохранить{% endtrans %}</button>
+                                    <button type="submit" class="btn btn-default" onclick="$('#formExit').val(1);">{% trans %}Сохранить и выйти{% endtrans %}</button>
+                                </div>
+                                {{ form_widget(pageForm.exit, {'id' : 'formExit'}) }}
+                            {{ form_end(pageForm)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>                  
+</main>
+{% endblock %}    

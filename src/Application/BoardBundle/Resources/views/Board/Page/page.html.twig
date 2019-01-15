@@ -1,0 +1,94 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %}Панель управления{% endtrans %} - {% trans %}Страницы{% endtrans %}{% endblock %}
+
+{% block body %}
+
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item">{% trans %}Страницы сайта{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group">
+                <a class="btn btn-secondary" href="{{ path('settingsBoard') }}"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Страницы сайта{% endtrans %}
+                            <div class="card-actions">
+                                <a href="{{ path('pageBoardEdit') }}" title="{% trans %}Добавить{% endtrans %}"><i class="fa fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" title="{% trans %}Удалить отмеченные{% endtrans %}" onclick="if(confirm('{% trans %}Вы действительно хотите удалить отмеченные пункты?{% endtrans %}')){$('#form_action').val('delete');document.form.submit();}"><i class="fa fa-trash-o"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {% if locales %}
+                                {{ form_start(form) }}
+                                <ul class="nav nav-tabs">
+                                {% set i = 1 %}
+                                    {% for locale in locales %}
+                                        <li class="nav-item">
+                                            <a class="nav-link {% if i == 1 %}active{% endif %}" data-toggle="tab" role="tab" href="#locale_{{ locale.code }}" aria-controls="locale_{{ locale.code }}"><img src="{{ asset('bundles/board/img/flags/' ~ locale.country) }}" />&nbsp;{{ locale.name }}</a>
+                                        </li>
+                                        {% set i = i + 1%}
+                                    {% endfor %}
+                                </ul>
+                                <div class="tab-content">
+                                    {% set i = 1 %}
+                                    {% for locale in locales %}
+                                        <div id="locale_{{ locale.code }}" class="tab-pane {% if i == 1 %}active in{% endif %}" role="tabpane">
+                                            {% if locale.pages | length > 0 %}
+                                                <table class="table table-bordered table-messages">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><input type="checkbox" class="selectAllItems" title="{% trans %}Выбрать все{% endtrans %}"/></th>
+                                                                <th>{% trans %}Название{% endtrans %}</th>
+                                                                <th>{% trans %}Ссылка{% endtrans %}</th>
+                                                                <th>{% trans %}Действия{% endtrans %}</th>
+                                                            </tr>
+                                                        </thead>   
+                                                        <tbody>
+                                                                {% for page in locale.pages %}
+                                                                    <tr>
+                                                                        <td><input name="pageIds[]" value="{{ page.id }}" type="checkbox" class="checkbox-item" /></td>
+                                                                        <td>{{ page.pageName }}</td>
+                                                                        <td><a href="{{ page.pageRoute }}" target="_blank">{{ page.pageRoute }}</a></td>
+                                                                        <td>
+                                                                            <a class="btn btn-info" href="{{ path('pageBoardEdit',{pageId: page.id}) }}">
+                                                                                <i class="fa fa-edit "></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                {% endfor %}
+                                                        </tbody>
+                                                </table>
+                                            {% else %}
+                                                {% trans %}Страницы пока не добавлены{% endtrans %}
+                                            {% endif %}  
+                                        </div>
+                                    {% set i = i + 1%}
+                                    {% endfor %}
+                                </div>
+                                {{ form_end(form) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+   
+{% endblock %}

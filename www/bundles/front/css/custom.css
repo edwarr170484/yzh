@@ -1,0 +1,84 @@
+@import "fonts.css" screen;
+@import "animations.css" screen;
+
+html{font-size:10px;height: 100%;background:url('../images/m-bg.jpg') 50% 50% no-repeat #0c1325;background-size:cover;}
+body{line-height:100%;height: 100%;display: -ms-flexbox;display: flex;color: #fff;background:inherit;}
+ul{margin:0;}
+h1,h2,h3,h4{padding:0;margin:0;font-size:inherit;}
+a,button{transition:all 0.3s ease 0s;}
+a:active, a:focus{outline:none;}
+button:active, button:focus {outline: none !important;}
+button::-moz-focus-inner {border: 0 !important;}
+.container {max-width: 1310px;}
+.site-header{padding-top:2.5rem;}
+.site-header-contacts ul li{font-size:1.4rem;color:#fff;padding-right:5rem;font-family: 'CenturyGothic', sans-serif;}
+.site-header-contacts ul li:last-child{padding-right:none;}
+.site-header-contacts ul li i{color:#ba1440;padding-right:1.8rem;}
+.site-header-request button{text-transform:uppercase;font-size:1.6rem;color:#fff;border:none;-moz-border-radius: 75px;-webkit-border-radius: 75px;border-radius: 75px;background:-moz-linear-gradient(48% 90% 49deg, #fff, #ff2880 28%);padding:1px;}
+.site-header-request button div {transition:all 0.3s ease 0s;background:#0d1527;padding:0.9rem 1.7rem;line-height:100%;font-family: 'CenturyGothic', sans-serif;-moz-border-radius: 75px;-webkit-border-radius: 75px;border-radius: 75px;}
+.site-header-request button:hover div,.site-header-request button:hover div{background:transparent;color:#0d1527;}
+.site-header-socials li{padding-right:10px;}
+.site-header-socials li:last-child{padding-right:10px;}
+.site-header-socials li a{color:#fff;font-size:2.4rem;line-height:100%;opacity:0.7;filter: alpha(opacity=70);-moz-opacity:0.7;}
+.site-header-socials li a:hover,.site-header-socials li a:focus{opacity:1;filter: alpha(opacity=100);-moz-opacity:1;}
+.site-header-socials li button{background:rgba(255,255,255,0.7);color:#0c1325;border:none;border-radius:50%;padding:5px 8px 8px 9px;font-size:2.2rem;line-height:100%;}
+.main-site-menu ul li{padding-bottom:1.5rem;padding-top:1.5rem;}
+.main-site-menu ul li a{color:#fff;font-size:18px;line-height:100%;font-family:"TechnicalDi", sans-serif; }
+.main-site-menu ul li a:hover,.main-site-menu ul li a:focus{text-decoration:none;text-shadow:-1px -1px 5px #ba1440;}
+.slider-textblock {font-family: 'CenturyGothic', sans-serif;align-items: flex-start;}
+.slider-textblock a{-moz-border-radius: 75px;-webkit-border-radius: 75px;border-radius: 75px;border:1px solid #ba1440;background:#ba1440;}
+.slider-textblock a:hover,.slider-textblock a:focus{text-decoration:none;background:none;}
+.modal-content{background:url('../images/mod-bg.jpg') 50% 50% no-repeat;background-size:cover;border:1px solid #ff2880;border-radius: 1.5rem;}
+.modal-header{border:none;text-align:center;text-transform:uppercase;font-family: 'CenturyGothic', sans-serif;font-size:2.4rem;padding-top:3rem;}
+.modal-header h5{font-size:2.4rem;}
+.modal-header button{color:#fff;font-size:2.6rem;background:none;position:absolute;border:none;right:3px;top:10px;}
+.modal-body{padding-left:2rem;padding-right:2rem;}
+.modal-footer{border:none;padding-bottom:4.8rem;}
+.modal-footer button{-moz-border-radius: 75px;-webkit-border-radius: 75px;border-radius: 75px;border:1px solid #ba1440;background:#ba1440;font-size:1.6rem;color:#fff;padding:1.4rem 4rem;text-transform:uppercase;padding-top: 1.2rem;}
+.modal-footer button:hover,.modal-footer button:focus{text-decoration:none;background:none;}
+.modal-body .form-control{background:none;border:none;border-bottom:1px solid #868992;font-size:1.2rem;padding:10px 0;color:#fff;margin-bottom:1.8rem;height:auto;}
+.modal-body .form-control:hover,.modal-body .form-control:focus{box-shadow:none;}
+.form-control::placeholder {color: #868992;opacity: 1;}
+.form-control::-moz-placeholder {color: #868992;opacity: 1;}
+.modal-body.contact-form{padding:0;}
+.modal-header.contact-form{padding-left:0;padding-right:0;padding-top:0;}
+.contact-info{font-size:1.4rem;color:#fff;line-height:2.4rem;font-family:"CenturyGothic", sans-serif;padding-bottom:3.2rem;padding-top:5rem;}
+.about-info{font-size:1.4rem;color:#fff;line-height:2.4rem;font-family:"CenturyGothic", sans-serif;padding-bottom:3.2rem;text-align:left;}
+.notfound-block{text-align:center;}
+.notfound-block{font-size:3rem;color:#fff;line-height:4.8rem;font-family:"CenturyGothic", sans-serif;}
+.blog-items{column-gap: 1.5em;-moz-column-gap: 1.5em;-webkit-column-gap: 1.5em;-moz-column-count: 3;-webkit-column-count: 3;column-count: 3;}
+.blog-item{display:inline-block;margin-bottom:2rem;}
+.blog-item-header{font-family:"CenturyGothic", sans-serif;font-size:1.8rem;line-height:2.4rem;color:#fff;text-align:center;padding-bottom:1rem;}
+.blog-item-image img{max-width:100%;height: auto;display: block;}
+.blog-item-image{position:relative;}
+.blog-item-link{position:absolute;width:100%;height:100%;text-align:center;top:0;left:0;font-family:"CenturyGothic", sans-serif;font-size:1.4rem;background: linear-gradient(transparent, #0d1326);color:#fff;display:none;}
+.blog-item-link span{display:block;position:absolute;bottom:0;left:0;width:100%;padding-bottom:2rem;text-decoration:underline;}
+.blog-item a:hover .blog-item-link{display:block;-moz-box-shadow: 0px 0px 15px #ba1440;-webkit-box-shadow: 0px 0px 15px #ba1440;box-shadow: 0px 0px 15px #ba1440;}
+.blog-item a:hover{text-decoration:none;}
+.blog-pagination{padding-bottom:2.6rem;}
+.blog-pagination ul li a{font-size:1.1rem;color:#ba1440;font-family:"CenturyGothic", sans-serif;background:#878b95;border-radius:50%;line-height:2.4rem;padding:3px 6px;}
+.blog-pagination ul li a.nav{background:none;border-radius:0;color:#fff;font-size:1.4rem;}
+.blog-pagination ul li a.active{color:#fff;background:#ba1440;font-size:1.4rem;padding:3px 7px;}
+.blog-pagination ul li a:hover,.blog-pagination ul li a:focus{color:#fff;background:#ba1440;text-decoration:none;}
+.blog-pagination ul li a.nav:hover,.blog-pagination ul li a.nav:focus{background:none;border-radius:0;color:#fff;font-size:1.4rem;text-decoration:underline;}
+.blog-pagination ul li:first-child a.nav{padding-left:24px;background:url('../images/pag-bg.png') 0 50% no-repeat;}
+.blog-pagination ul li:last-child a.nav{padding-right:24px;background:url('../images/pag-bg.png') 100% 50% no-repeat;}
+.blog-item-header h1{text-align:left;font-size:3rem;}
+.blog-item-header h1 a{font-size:2.4rem;color:#ba1440;}
+.blog-item-header h1 a:hover,.blog-item-header h1 a:focus{text-decoration:none;}
+.blog-images{padding-top:4rem;column-gap: 1em;-moz-column-gap: 1em;-webkit-column-gap: 1em;-moz-column-count: 2;-webkit-column-count: 2;column-count: 2;}
+.blog-images .blog-image{display:inline-block;margin-bottom:.7rem;}
+.blog-images .blog-image img{max-width:100%;height: auto;display: block;}
+#menu-toggler{color: rgba(255,255,255,.5);border:none;padding: 0.6rem 1rem;font-size: 2.4rem;line-height: 1;background: transparent;border-radius: .25rem;cursor:pointer;}
+.navbar-toggler-icon {background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");}
+.portfolioCategories{position:relative;}
+.portfolioCategory{position:absolute;}
+.portfolioCategory a{color:#fff;font-family:"CenturyGothic", sans-serif;font-size:2.4rem;display:flex;flex-direction:column;align-items:center}
+.portfolioCategory a > span{display:block;padding:2rem 0;position:raltive;line-height:100%;text-align:center;}
+.portfolioCategory a > span > span{padding:0 7rem;margin-bottom:0.5rem;display:block;}
+.portfolioCategory a img{width:100%;}
+.portfolioCategory a:hover,.portfolioCategory a:focus{text-decoration:none;}
+.portfolioCategory a:hover img,.portfolioCategory a:focus img{-moz-box-shadow: 0px 0px 10px #ff2880;-webkit-box-shadow: 0px 0px 10px #ff2880;box-shadow: 0px 0px 10px #ff28800;}
+.portfolio-decoration{width:100%;height:20px;margin-top:1rem;background:url('../images/p-bg.png') 50% 50% no-repeat;background-size:cover;}
+.portfolioCategory a:hover .portfolio-decoration,.portfolioCategory a:focus .portfolio-decoration{background:url('../images/pp-bg.png') 50% 50% no-repeat;}
+.portfolioCategoriesMobile{display:none;}

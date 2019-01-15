@@ -1,0 +1,82 @@
+{% extends 'ApplicationBoardBundle:Common:base.html.twig' %}
+
+{% block title %}{% trans %}Панель управления BootBoard v1.0{% endtrans %} - {% trans %}Валюта сайта{% endtrans %}{% endblock %}
+
+{% block body %}
+<main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('indexBoard') }}">{% trans %}Панель управления{% endtrans %}</a></li>
+        <li class="breadcrumb-item">{% trans %}Валюта сайта{% endtrans %}</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu hidden-md-down">
+            <div class="btn-group" role="group">
+                <a class="btn btn-secondary" href="{{ path('settingsBoard') }}"><i class="icon-settings"></i> &nbsp;{% trans %}Настройки{% endtrans %}</a>
+            </div>
+        </li>
+    </ol>
+    <div class="container-fluid">
+        <div class="animated fadeIn">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fa fa-edit"></i> {% trans %}Валюта сайта{% endtrans %}
+                            <div class="card-actions">
+                                <a href="{{ path('currencyEditBoard') }}" title="{% trans %}Добавить{% endtrans %}"><i class="fa fa fa-plus"></i></a>
+                                <a href="javascript:void(0)" title="{% trans %}Сохранить{% endtrans %}" onclick="document.form.submit();"><i class="fa fa-floppy-o"></i></a>
+                                <!--<a href="javascript:void(0)" title="{% trans %}Удалить отмеченные{% endtrans %}" onclick="if(confirm('{% trans %}Вы действительно хотите удалить отмеченные пункты?{% endtrans %}')){$('#form_action').val('delete');document.form.submit();}"><i class="fa fa-trash-o"></i></a>-->
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            {% for flashMessage in app.session.flashbag.get('notice') %}
+                                <div class="notice-message">
+                                    {{ flashMessage | raw }}
+                                </div>                             
+                            {% endfor %}
+                            {% if currencies %}
+                                {{ form_start(form) }}
+                                    <table class="table table-bordered table-striped table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" class="selectAllItems" title="{% trans %}Выбрать все{% endtrans %}"/></th>
+                                                <th>{% trans %}Название{% endtrans %}</th>
+                                                <th>{% trans %}Код валюты{% endtrans %}</th>
+                                                <th>{% trans %}Коэфициент пересчета{% endtrans %}</th>
+                                                <th>{% trans %}По умолчанию{% endtrans %}</th>
+                                                <th>{% trans %}Порядок{% endtrans %}</th>
+                                                <th>{% trans %}Действия{% endtrans %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for currency in currencies %}
+                                                <tr>
+                                                    <td><input name="currencyId[]" value="{{ currency.id }}" type="checkbox" class="checkbox-item" /></td>
+                                                    <td>{{ currency.name }}</td>
+                                                    <td>{{ currency.code }}</td>
+                                                    <td>{{ currency.kurs }}</td>
+                                                    <td><input name="currencyDefault[]" type="radio" {% if currency.isDefault %}checked=""{% endif %} value="{{ currency.id }}" /></td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" onclick="itemUp($(this))"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+                                                        <input name="sortorder[{{ currency.id }}]" value="{{ currency.sortorder }}" class="item-sortorder"/>
+                                                        <a href="javascript:void(0)" onclick="itemDown($(this))"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ path('currencyEditBoard', {'currencyId' : currency.id}) }}" class="btn btn-primary" title="{% trans %}Редактировать{% endtrans %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {{ form_end(form) }}
+                            {% else %}
+                                {% trans %}Валюты сайта не добавлены{% endtrans %}
+                            {% endif %}
+                        </div> 
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,45 @@
+portfolioPage:
+    path: /portfolio/{pageNumber}
+    defaults: 
+        _controller: ApplicationPortfolioBundle:Front:portfolio
+        pageNumber: 0
+portfolioPageLocale:
+    path: /{_locale}/portfolio/{pageNumber}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Front:portfolio
+        _locale: %defloc%
+        pageNumber: 0
+    requirements: 
+        _locale: %locales%
+singlePortfolio:
+    path: /portfolio/single/{portfolioName}/{pageNumber}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Front:single
+        pageNumber: 0
+singlePortfolioLocale:
+    path: /_locale/portfolio/single/{portfolioName}/{pageNumber}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Front:single
+        _locale: %defloc%
+        pageNumber: 0
+    requirements: 
+        _locale: %locales%
+portfolioBoard:
+    path: /board/portfolio/{page}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Board:list
+        page: 0
+portfolioEditBoard:
+    path: /board/portfolioedit/{itemId}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Board:edit
+        itemId: 0
+portfolioCategoryBoard:
+    path: /board/portfoliocategory
+    defaults:
+        _controller: ApplicationPortfolioBundle:Board:categoryList
+portfolioCategoryEditBoard:
+    path: /board/edit/portfoliocategory/{itemId}
+    defaults:
+        _controller: ApplicationPortfolioBundle:Board:categoryEdit
+        itemId: 0

@@ -1,0 +1,14 @@
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: yzh
+    database_user: root
+    database_password: null
+    mailer_transport: mail
+    mailer_host: 127.0.0.1
+    mailer_user: admin@infoheap.local
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locale: [ru, en, fr]
+    locales: ru|en|fr
+    defloc: ru

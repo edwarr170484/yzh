@@ -1,0 +1,26 @@
+{% extends 'ApplicationFrontBundle:Common:base.html.twig' %}
+
+{% block metatags %}
+    <title>{{ page.metaTagTitle }}</title>
+    <meta content="{{ page.metaTagDescription}}" name="description" />
+    <meta content="{{ page.metaTagKeywords}}" name="keywords" />
+    <meta content="{{ page.metaTagAuthor}}" name="author" />
+    <meta content="{{ page.metaTagRobots}}" name="robots" />
+{% endblock %}
+
+{% block body %}
+<div class="row flex-row align-items-center mb-auto">
+    {{ render(controller('ApplicationFrontBundle:Default:getMenu', {'request' : app.request})) }}
+    <div class="col-lg-10 col-md-10">
+        <div class="notfound-block">
+            <img src="{{ asset('bundles/front/images/404.png') }}" alt="" title="" />
+            <div>{{ page.pageContent | raw }}</div>
+        </div>
+    </div>
+</div>    
+{% if page.blocks %}
+    {% for block in page.blocks %}
+        {{ block.blockContent | raw }}
+    {% endfor %}
+{% endif %}
+{% endblock %}

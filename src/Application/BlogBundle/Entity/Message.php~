@@ -1,0 +1,174 @@
+<?php
+namespace Application\ClientBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Table()
+ * @ORM\Entity()
+ */
+class Message
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+    
+    /**
+     * @ORM\Column(type="string", length = 255, nullable=true, options={"default":"null"})
+     */
+    private $name;
+    
+    /**
+     * @ORM\Column(type="string", length = 255, nullable=true, options={"default":"null"})
+     */
+    private $email;
+    
+    /**
+     * @ORM\Column(type="string", length = 255, nullable=true, options={"default":"null"})
+     */
+    private $phone;
+    
+    /**
+     * @ORM\Column(type="text", nullable=true, options={"default":"null"})
+     */
+    private $message;
+    
+    /**
+     * @ORM\Column(type="integer", length = 1)
+     */
+    private $type;
+    
+    /**
+     * @ORM\Column(type="integer", length = 1, nullable=true, options={"default":"0"})
+     */
+    private $status;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Message
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Message
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return Message
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set message
+     *
+     * @param string $message
+     * @return Message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get message
+     *
+     * @return string 
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Message
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+}
